@@ -44,7 +44,7 @@ No build step. Serve the folder and open it:
 
 ```bash
 python3 -m http.server 8000 -d web
-cd web && npm test            # model and preview tests (node --test)
+node --test tests/web/*.test.js   # model and preview tests (Node 22+)
 python tools/build_web.py     # regenerate archicad/BuildBoard.py and presets/ after editing the package or boards/
 ```
 
@@ -52,7 +52,11 @@ python tools/build_web.py     # regenerate archicad/BuildBoard.py and presets/ a
 
 ## Deploy on Vercel
 
-Import the repository in Vercel and set **Root Directory** to `web`, **Framework
-Preset** to *Other*, with no build command and no output directory. `vercel.json`
-sets the security headers (a strict Content-Security-Policy: the page loads only
-its own files) and serves the Tapir script as a download.
+Import the repository in Vercel with the defaults; nothing needs setting. The
+repository's root `vercel.json` turns off framework detection (the root also holds a
+Python package, which Vercel would otherwise try to build) and serves `web/` as is,
+with no install or build step. Setting **Root Directory** to `web` works too: then
+`web/vercel.json` applies. Both files send the same security headers (a strict
+Content-Security-Policy: the page loads only its own files) and serve the Tapir
+script as a download; a test keeps them in step. The folder holds only what is
+served: the tests live in `tests/web/`.

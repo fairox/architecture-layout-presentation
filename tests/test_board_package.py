@@ -144,3 +144,12 @@ def test_bundled_script_refuses_an_invalid_file(cfg, tmp_path, bundle, capsys):
 def test_bundled_script_only_talks_to_this_computer(tmp_path, bundle):
     with pytest.raises(SystemExit):
         bundle.main([str(tmp_path / "x.board.json"), "--host", "http://example.com:19723"])
+
+
+def test_vercel_configs_agree():
+    # vercel.json at the root serves web/ when the Vercel project's Root Directory is left
+    # blank; web/vercel.json applies when it is set to web. Both must send the same headers.
+    root = json.loads((ROOT / "vercel.json").read_text(encoding="utf-8"))
+    web = json.loads((ROOT / "web" / "vercel.json").read_text(encoding="utf-8"))
+    assert root["outputDirectory"] == "web" and root["framework"] is None
+    assert root["headers"] == web["headers"]

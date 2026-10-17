@@ -1,0 +1,5 @@
+tests
+package.json
+.vercel
+.env*
+__pycache__

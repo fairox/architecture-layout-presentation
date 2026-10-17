@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Board Configurator</title>
+  <meta name="description" content="Lay out an Archicad presentation board, preview it live, and export the board file and Tapir script that build it.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/app.css">
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="3" y="2" width="18" height="20" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="6" y="5" width="4" height="9" fill="currentColor" opacity=".35"/><rect x="11" y="5" width="7" height="13" fill="currentColor" opacity=".7"/><rect x="6" y="15" width="4" height="3" fill="currentColor" opacity=".35"/></svg>
+      <div>
+        <strong>Board Configurator</strong>
+        <span id="boardTitle" class="muted"></span>
+      </div>
+    </div>
+    <div class="actions">
+      <label class="sr-only" for="presetSelect">Start from</label>
+      <select id="presetSelect" title="Start from a board preset"></select>
+      <button type="button" id="undoBtn" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button>
+      <button type="button" id="redoBtn" title="Redo (Ctrl+Shift+Z)" aria-label="Redo">↷</button>
+      <button type="button" id="importBtn" title="Open a board.json or .board.json file">Open…</button>
+      <input type="file" id="importFile" accept=".json,application/json" hidden>
+      <button type="button" id="statusBtn" class="status" title="Checks"></button>
+      <button type="button" id="exportBtn" class="primary">Build in Archicad</button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <aside class="sidebar" aria-label="Board settings">
+      <nav class="tabs" role="tablist">
+        <button type="button" role="tab" data-tab="page">Page</button>
+        <button type="button" role="tab" data-tab="style">Style</button>
+        <button type="button" role="tab" data-tab="content">Text</button>
+        <button type="button" role="tab" data-tab="sources">Sources</button>
+        <button type="button" role="tab" data-tab="build">Build</button>
+      </nav>
+      <div id="tabBody" class="tab-body"></div>
+    </aside>
+
+    <section class="stage" aria-label="Live preview">
+      <div class="stage-tools">
+        <div class="seg">
+          <button type="button" data-zoom="fit">Fit</button>
+          <button type="button" data-zoom="-" aria-label="Zoom out">−</button>
+          <span id="zoomLabel">100%</span>
+          <button type="button" data-zoom="+" aria-label="Zoom in">+</button>
+        </div>
+        <label class="check"><input type="checkbox" id="gridToggle"> Grid</label>
+        <label class="check"><input type="checkbox" id="labelToggle"> Labels</label>
+        <label class="check"><input type="checkbox" id="editToggle" checked> Edit</label>
+        <span class="muted hint">Drag to move, handles to resize, Alt to skip snapping, arrows to nudge.</span>
+      </div>
+      <div id="canvasWrap" class="canvas-wrap"><div id="board" class="board-host"></div></div>
+    </section>
+
+    <aside class="inspector" id="inspector" aria-label="Selected item"></aside>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <dialog id="dialog"><form method="dialog" class="dialog-body"><div id="dialogContent"></div><menu><button value="close">Close</button></menu></form></dialog>
+</body>
+</html>

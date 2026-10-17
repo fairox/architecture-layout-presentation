@@ -1,0 +1,360 @@
+{
+  "_comment": "PRES-01 presentation board. Panel geometry is in millimetres from the page's upper-left corner (x right, y down); the builder converts to Archicad layout metres with a lower-left origin. Navigator ids are from CapitalLink-Presentation-Working.pln; re-map them for another project.",
+  "layout": {
+    "id": "PRES-01",
+    "name": "Capital Link Phomolong — Presentation Board",
+    "subset": "Presentation Boards",
+    "master": "PRES Master 600x750",
+    "width_mm": 600,
+    "height_mm": 750,
+    "publisher_set": "1 - Layouts"
+  },
+  "layer": "PRES-01 Board",
+  "pens": {
+    "charcoal": {
+      "index": 241,
+      "hex": "#303637",
+      "width_mm": 0.18
+    },
+    "grey": {
+      "index": 242,
+      "hex": "#7C8486",
+      "width_mm": 0.1
+    },
+    "cream": {
+      "index": 243,
+      "hex": "#FFF0DD",
+      "width_mm": 0.1
+    },
+    "peach": {
+      "index": 244,
+      "hex": "#F5C5B2",
+      "width_mm": 0.1
+    },
+    "coral": {
+      "index": 245,
+      "hex": "#E99B8D",
+      "width_mm": 0.13
+    },
+    "bluegrey": {
+      "index": 246,
+      "hex": "#667786",
+      "width_mm": 0.13
+    }
+  },
+  "pen_table": "03 Architectural 100",
+  "solid_fill": "Foreground",
+  "type_mm": {
+    "title": 13.4,
+    "location": 4.9,
+    "heading": 3.6,
+    "body": 3.7,
+    "caption": 3.35,
+    "credit": 3.0
+  },
+  "border": {
+    "inset_x_mm": 18,
+    "inset_y_mm": 22.5,
+    "pen": "grey",
+    "weight_mm": 0.18
+  },
+  "panels": {
+    "info": {
+      "x": 33,
+      "y": 33.75,
+      "w": 120,
+      "h": 45
+    },
+    "principles": {
+      "x": 33,
+      "y": 90,
+      "w": 120,
+      "h": 105
+    },
+    "context": {
+      "x": 33,
+      "y": 213.75,
+      "w": 120,
+      "h": 120
+    },
+    "section": {
+      "x": 33,
+      "y": 345,
+      "w": 120,
+      "h": 135
+    },
+    "hero": {
+      "x": 171,
+      "y": 26.25,
+      "w": 258,
+      "h": 453.75
+    },
+    "explanation": {
+      "x": 171,
+      "y": 495,
+      "w": 258,
+      "h": 52.5
+    },
+    "plans": {
+      "x": 444,
+      "y": 33.75,
+      "w": 123,
+      "h": 450
+    },
+    "lower": {
+      "x": 33,
+      "y": 555,
+      "w": 396,
+      "h": 161.25
+    },
+    "interior": {
+      "x": 444,
+      "y": 547.5,
+      "w": 123,
+      "h": 168.75
+    }
+  },
+  "project": {
+    "title_lines": [
+      "Capital Link",
+      "Phomolong"
+    ],
+    "location": "Phomolong · [Project location]",
+    "info_lines": [
+      "Project   Capital Link Phomolong",
+      "Scheme   Scheme B — with basement",
+      "Location   [Project location]",
+      "Architect   [Author / studio]",
+      "Levels   Basement to Sixth Floor (model)",
+      "Area   [Gross floor area]"
+    ],
+    "principles": [
+      "[Design principle 1]",
+      "[Design principle 2]",
+      "[Design principle 3]",
+      "[Design principle 4]",
+      "[Design principle 5]"
+    ],
+    "explanation": [
+      "Scheme B, with basement. The model rises from a basement through a two-storey podium (Ground and First Floor) and a glazed Second Floor to tower floors up to the Sixth Floor.",
+      "[Project description: add the brief, programme and design intent here.]"
+    ],
+    "credit": "[Author / studio]  ·  Capital Link Phomolong  ·  PRES-01"
+  },
+  "images": [
+    {
+      "key": "hero",
+      "file": "PRES01_hero.jpg",
+      "panel": "hero",
+      "x": 171,
+      "y": 104,
+      "w": 258,
+      "h": 376,
+      "source": "Project-Workspace/Phomolong_Scheme_B_-_With_2K_20261016054242.jpg"
+    },
+    {
+      "key": "context",
+      "file": "PRES01_context_circle.jpg",
+      "panel": "context",
+      "x": 37,
+      "y": 217.75,
+      "w": 112,
+      "h": 112,
+      "source": "Project-Workspace/SITE-PHOMOLONG_1.jpg (circular crop around the site)"
+    },
+    {
+      "key": "site",
+      "file": "PRES01_site.jpg",
+      "panel": "lower",
+      "x": 33,
+      "y": 558.25,
+      "w": 250,
+      "h": 158,
+      "source": "Project-Workspace/SITE-PHOMOLONG_1.jpg"
+    },
+    {
+      "key": "street",
+      "file": "PRES01_street.jpg",
+      "panel": "lower",
+      "x": 297,
+      "y": 558.25,
+      "w": 132,
+      "h": 85,
+      "source": "Project-Workspace/2026_-_CAPITAL_LINK_CCCA.jpg"
+    }
+  ],
+  "drawings": [
+    {
+      "key": "section",
+      "name": "PRES-01 Building Section",
+      "source": "EB859B19-68DE-006F-3E9D-E66C7B75F9B0",
+      "scale": 500,
+      "slot": {
+        "x": 33,
+        "y": 345,
+        "w": 120,
+        "h": 125
+      },
+      "caption": "Building Section   1:500"
+    },
+    {
+      "key": "plan-5",
+      "name": "PRES-01 Fifth Floor",
+      "source": "9596C665-388A-414C-BAA8-40928E5498FB",
+      "scale": 750,
+      "slot": {
+        "x": 444,
+        "y": 33.75,
+        "w": 123,
+        "h": 75
+      },
+      "model_clip": [
+        -2,
+        -4,
+        84.5,
+        37.5
+      ],
+      "caption": "Fifth Floor   1:750"
+    },
+    {
+      "key": "plan-3",
+      "name": "PRES-01 Third Floor",
+      "source": "887F4613-7EB4-440E-82FD-5512BCF84531",
+      "scale": 750,
+      "slot": {
+        "x": 444,
+        "y": 123.75,
+        "w": 123,
+        "h": 75
+      },
+      "model_clip": [
+        -2,
+        -4,
+        84.5,
+        37.5
+      ],
+      "caption": "Third Floor   1:750"
+    },
+    {
+      "key": "plan-2",
+      "name": "PRES-01 Second Floor",
+      "source": "2CF75420-776F-4370-9130-9E861D3DD087",
+      "scale": 750,
+      "slot": {
+        "x": 444,
+        "y": 213.75,
+        "w": 123,
+        "h": 75
+      },
+      "model_clip": [
+        -2,
+        -4,
+        84.5,
+        37.5
+      ],
+      "caption": "Second Floor   1:750"
+    },
+    {
+      "key": "plan-0",
+      "name": "PRES-01 Ground Floor",
+      "source": "E602EB6D-D102-42AD-9DF2-B6DFD55A4192",
+      "scale": 750,
+      "slot": {
+        "x": 444,
+        "y": 303.75,
+        "w": 123,
+        "h": 75
+      },
+      "model_clip": [
+        -2,
+        -4,
+        84.5,
+        37.5
+      ],
+      "caption": "Ground Floor   1:750"
+    },
+    {
+      "key": "plan-b",
+      "name": "PRES-01 Basement",
+      "source": "EA9E4DF3-E538-471D-AA33-95958D3376A9",
+      "scale": 750,
+      "slot": {
+        "x": 444,
+        "y": 393.75,
+        "w": 123,
+        "h": 75
+      },
+      "model_clip": [
+        -2,
+        -4,
+        84.5,
+        37.5
+      ],
+      "caption": "Basement   1:750"
+    },
+    {
+      "key": "axonometry",
+      "name": "PRES-01 Axonometry",
+      "source": "6DFEE667-6656-47A4-A0D2-D3F91E4FEB90",
+      "fit": true,
+      "slot": {
+        "x": 297,
+        "y": 653,
+        "w": 132,
+        "h": 55
+      },
+      "caption": "Axonometry (3D document, not to scale)"
+    }
+  ],
+  "captions": [
+    {
+      "text": "Site context",
+      "x": 33,
+      "y": 333.25
+    },
+    {
+      "text": "Site and context (aerial)",
+      "x": 33,
+      "y": 551.5
+    },
+    {
+      "text": "Street view (render)",
+      "x": 297,
+      "y": 646.5
+    }
+  ],
+  "placeholders": [
+    {
+      "key": "interior",
+      "x": 444,
+      "y": 547.5,
+      "w": 123,
+      "h": 155,
+      "text": "[Interior perspective]\nNo interior render was found\nin the project files.",
+      "caption": "Interior"
+    }
+  ],
+  "presentation_views": {
+    "folder": "PRES-01 Board Views",
+    "layer_combination": "PRES-01 Presentation",
+    "hide_layer_prefixes": [
+      "Structural - Grid",
+      "Marker - ",
+      "Dimensioning - ",
+      "2D Drafting - Hotspot",
+      "Model Unit - Zone",
+      "PLAN - Zones",
+      "- Hidden",
+      "MEP - ",
+      "Interior - Lamp",
+      "Finish - ",
+      "Site & Landscape - Terrain",
+      "Parking Layout",
+      "Annotation - Structure"
+    ],
+    "show_board_layer_in": [
+      "09 Layouting"
+    ],
+    "pen_set": "09 Grayscale ◩"
+  }
+}

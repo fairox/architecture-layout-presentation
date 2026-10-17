@@ -12,7 +12,7 @@ You select the elements that change between options, run one command, and get a 
 
 ## Status
 
-This is an early scaffold. It ships one command, `duplicate-to-option`. Layout and presentation commands come next.
+Two commands so far: `duplicate-to-option` for design options, and `build-board` for presentation boards.
 
 ## Requirements
 
@@ -61,12 +61,30 @@ The command works in these steps:
 
 It checks for the option property before copying anything, so an empty selection or a missing property leaves the model untouched.
 
+### `build-board`
+
+Builds or rebuilds a presentation board layout from a JSON config: linked drawings placed at a true
+scale and clipped to their panels, editable text, palette fills and linework, and renders or photos
+drawn by a small 2D picture object. See [boards/pres-01](boards/pres-01/README.md) for the first
+board, its config and the exact steps.
+
+```bash
+archicad-toolkit build-board boards/pres-01/board.json --assets out/images --gsm out/PRES_Image2D.gsm --publish out/preview
+```
+
+Each run reads every placed image and drawing back and checks it against its panel and the page
+border. A rerun replaces only the elements the previous run created (listed in the manifest and still
+on the board layer).
+
 ## Layout
 
 ```
 src/archicad_toolkit/
   client.py                     thin JSON API / Tapir client with an injectable transport
   commands/duplicate_to_option.py
+  presentation/geometry.py      page and drawing-placement arithmetic (pure, unit tested)
+  presentation/board.py         build-board: layout, views, drawings, images, text, read-back checks
+boards/pres-01/                 PRES-01 config, image preparation, 2D picture object source
   cli.py                        archicad-toolkit entry point
 tests/
   fake_archicad.py              in-memory Archicad + Tapir used as the transport

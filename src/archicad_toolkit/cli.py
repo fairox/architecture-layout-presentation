@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import argparse
+import json
 import sys
+from pathlib import Path
 
 from archicad_toolkit.client import DEFAULT_URL, ArchicadError, TapirClient, http_transport
 from archicad_toolkit.commands.duplicate_to_option import (
@@ -32,6 +34,13 @@ def build_parser() -> argparse.ArgumentParser:
         "--tag-originals", metavar="NAME",
         help='Also tag the selected originals, e.g. "Option A"',
     )
+
+    board = sub.add_parser("build-board", help="Build or rebuild a presentation board layout")
+    board.add_argument("config", type=Path, help="Board config JSON, e.g. boards/pres-01/board.json")
+    board.add_argument("--assets", type=Path, required=True, help="Folder with the prepared images")
+    board.add_argument("--gsm", type=Path, required=True, help="Compiled PRES_Image2D.gsm")
+    board.add_argument("--manifest", type=Path, help="Where to keep the element manifest (default: next to the config)")
+    board.add_argument("--publish", type=Path, metavar="DIR", help="Also publish the layout to this folder")
     return parser
 
 
@@ -53,6 +62,22 @@ def main(argv: list[str] | None = None, client: TapirClient | None = None) -> in
             )
             for warning in result.warnings:
                 print(f"Warning: {warning}", file=sys.stderr)
+        elif args.command == "build-board":
+            from archicad_toolkit.presentation import build_board, publish_layout
+
+            cfg = json.loads(args.config.read_text(encoding="utf-8"))
+            manifest = args.manifest or args.config.with_name("manifest.json")
+            board = build_board(client, cfg, assets_dir=args.assets, gsm=args.gsm, manifest_path=manifest)
+            elements = sum(len(v) for v in board.created.values())
+            print(f"Built {cfg['layout']['id']}: {elements} element(s), replaced {board.removed}.")
+            for check in board.failed_checks:
+                print(f"Check failed: {check}", file=sys.stderr)
+            for warning in board.warnings:
+                print(f"Warning: {warning}", file=sys.stderr)
+            (manifest.with_name("checks.json")).write_text(json.dumps(board.checks, indent=2), encoding="utf-8")
+            if args.publish:
+                publish_layout(client, cfg["layout"]["publisher_set"], board.layout_navigator_id, args.publish)
+                print(f"Published to {args.publish}")
     except (ArchicadError, ValueError) as exc:
         print(f"Error: {exc}", file=sys.stderr)
         return 1

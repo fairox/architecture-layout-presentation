@@ -37,8 +37,9 @@ def build_parser() -> argparse.ArgumentParser:
 
     board = sub.add_parser("build-board", help="Build or rebuild a presentation board layout")
     board.add_argument("config", type=Path, help="Board config JSON, e.g. boards/pres-01/board.json")
-    board.add_argument("--assets", type=Path, required=True, help="Folder with the prepared images")
-    board.add_argument("--gsm", type=Path, required=True, help="Compiled PRES_Image2D.gsm")
+    board.add_argument("--assets", type=Path, help="Folder with the prepared images (default: unpacked from the "
+                       "board file when it embeds them, else the config's folder)")
+    board.add_argument("--gsm", type=Path, help="Compiled PRES_Image2D.gsm (default: compile it with LP_XMLConverter)")
     board.add_argument("--manifest", type=Path, help="Where to keep the element manifest (default: next to the config)")
     board.add_argument("--publish", type=Path, metavar="DIR", help="Also publish the layout to this folder")
     return parser
@@ -64,10 +65,24 @@ def main(argv: list[str] | None = None, client: TapirClient | None = None) -> in
                 print(f"Warning: {warning}", file=sys.stderr)
         elif args.command == "build-board":
             from archicad_toolkit.presentation import build_board, publish_layout
+            from archicad_toolkit.presentation.package import (
+                BoardConfigError, compile_picture_object, has_embedded_images, require_valid, unpack_images)
 
             cfg = json.loads(args.config.read_text(encoding="utf-8"))
+            try:
+                for warning in require_valid(cfg):
+                    print(f"Warning: {warning}", file=sys.stderr)
+            except BoardConfigError as exc:
+                for error in exc.errors:
+                    print(f"Error: {error}", file=sys.stderr)
+                return 2
             manifest = args.manifest or args.config.with_name("manifest.json")
-            board = build_board(client, cfg, assets_dir=args.assets, gsm=args.gsm, manifest_path=manifest)
+            assets = args.assets or args.config.parent
+            if has_embedded_images(cfg):
+                assets = args.assets or manifest.parent / "images"
+                cfg, _ = unpack_images(cfg, assets)
+            gsm = args.gsm or compile_picture_object(manifest.parent)
+            board = build_board(client, cfg, assets_dir=assets, gsm=gsm, manifest_path=manifest)
             elements = sum(len(v) for v in board.created.values())
             print(f"Built {cfg['layout']['id']}: {elements} element(s), replaced {board.removed}.")
             for check in board.failed_checks:
@@ -78,7 +93,7 @@ def main(argv: list[str] | None = None, client: TapirClient | None = None) -> in
             if args.publish:
                 publish_layout(client, cfg["layout"]["publisher_set"], board.layout_navigator_id, args.publish)
                 print(f"Published to {args.publish}")
-    except (ArchicadError, ValueError) as exc:
+    except (ArchicadError, ValueError, FileNotFoundError, RuntimeError) as exc:
         print(f"Error: {exc}", file=sys.stderr)
         return 1
     return 0

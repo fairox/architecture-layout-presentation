@@ -4,10 +4,10 @@ import { readFileSync } from 'node:fs';
 import {
   clone, contained, drawingPaperSize, gridLines, imagePlacement, items, normalise, setPageSize,
   snapMove, snapValue, texts, toConfig, toPackage, validate, wrap,
-} from '../js/model.js';
-import { renderSvg } from '../js/preview.js';
+} from '../../web/js/model.js';
+import { renderSvg } from '../../web/js/preview.js';
 
-const preset = JSON.parse(readFileSync(new URL('../presets/pres-01.json', import.meta.url), 'utf8'));
+const preset = JSON.parse(readFileSync(new URL('../../web/presets/pres-01.json', import.meta.url), 'utf8'));
 const board = () => normalise(preset);
 
 test('the PRES-01 preset validates with no errors or warnings', () => {

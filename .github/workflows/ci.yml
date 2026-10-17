@@ -32,5 +32,4 @@ jobs:
       - name: Generated web files are up to date
         run: python tools/build_web.py --check
       - name: Configurator unit tests
-        working-directory: web
-        run: npm test
+        run: node --test tests/web/*.test.js
